@@ -35,8 +35,8 @@ class BinanceJobs {
   }
 
   async initialTargetUsd() {
-    // const banca = await getBancaAtual();
-    const banca = 20;
+    const banca = await getBancaAtual();
+    // const banca = 20;
     const target = calcularTargetUSD(banca);
 
     return target;

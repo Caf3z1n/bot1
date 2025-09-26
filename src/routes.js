@@ -5,7 +5,6 @@ import BinanceController from './app/controllers/BinanceController';
 
 const routes = Router();
 
-routes.post('/positions', PositionController.store);
 routes.get('/positions', PositionController.index);
 
 routes.post('/binance', BinanceController.store);
