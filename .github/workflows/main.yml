@@ -48,3 +48,4 @@ jobs:
           script: |
             cd ~/bot1
             yarn
+            yarn sequelize db:migrate
