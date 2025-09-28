@@ -3,7 +3,7 @@ import cors from 'cors';
 
 import './database';
 import routes from './routes';
-// import live from './live'; //
+// import live from './live';
 
 class App {
   constructor() {
