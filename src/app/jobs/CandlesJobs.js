@@ -42,9 +42,12 @@ class CandleJobs {
     const candlesValidos = [];
     for (const candle of candles) {
       if (candle.rsi <= config.strategy.rsibuy) {
-        // if (candle.close >= candle[config.strategy.ema1] && candle.close >= candle[config.strategy.ema2]) {
-        candlesValidos.push(candle);
-        // }
+        if (
+          candle.close >= candle[config.strategy.ema1] &&
+          candle.close >= candle[config.strategy.ema2]
+        ) {
+          candlesValidos.push(candle);
+        }
       }
     }
 
