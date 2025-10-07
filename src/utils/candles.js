@@ -13,23 +13,16 @@ const client = Binance({});
 // --- utilitários ---
 const toNum = (x) => Number(x);
 const round = (x, d = 2) => (Number.isFinite(x) ? Number(x.toFixed(d)) : null);
-const pad2 = (n) => (n < 10 ? `0${n}` : `${n}`);
-function fmtDate(ms, tz = 'America/Sao_Paulo') {
-  const d = new Date(ms);
-  const fmt = new Intl.DateTimeFormat('pt-BR', {
-    timeZone: tz,
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: false,
-  });
-
-  const parts = Object.fromEntries(
-    fmt.formatToParts(d).map((p) => [p.type, p.value])
-  );
-  return `${parts.day}/${parts.month}/${parts.year} ${parts.hour}:${parts.minute}`;
+const pad2 = (n) => (n < 10 ? '0' : '') + n;
+function fmtDate(ms) {
+  // desloca 3h para simular UTC-3 sem custo de timezone
+  const d = new Date(ms - 3 * 60 * 60 * 1000);
+  const dd = pad2(d.getUTCDate());
+  const MM = pad2(d.getUTCMonth() + 1);
+  const yyyy = d.getUTCFullYear();
+  const HH = pad2(d.getUTCHours());
+  const mm = pad2(d.getUTCMinutes());
+  return `${dd}/${MM}/${yyyy} ${HH}:${mm}`;
 }
 
 // Alinha saída do EMA da lib (que começa em index = period-1) ao mesmo tamanho do input
