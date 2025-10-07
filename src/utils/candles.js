@@ -14,14 +14,22 @@ const client = Binance({});
 const toNum = (x) => Number(x);
 const round = (x, d = 2) => (Number.isFinite(x) ? Number(x.toFixed(d)) : null);
 const pad2 = (n) => (n < 10 ? `0${n}` : `${n}`);
-function fmtDate(ms) {
+function fmtDate(ms, tz = 'America/Sao_Paulo') {
   const d = new Date(ms);
-  const dd = pad2(d.getDate());
-  const MM = pad2(d.getMonth() + 1);
-  const yyyy = d.getFullYear();
-  const HH = pad2(d.getHours());
-  const mm = pad2(d.getMinutes());
-  return `${dd}/${MM}/${yyyy} ${HH}:${mm}`;
+  const fmt = new Intl.DateTimeFormat('pt-BR', {
+    timeZone: tz,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  });
+
+  const parts = Object.fromEntries(
+    fmt.formatToParts(d).map((p) => [p.type, p.value])
+  );
+  return `${parts.day}/${parts.month}/${parts.year} ${parts.hour}:${parts.minute}`;
 }
 
 // Alinha saída do EMA da lib (que começa em index = period-1) ao mesmo tamanho do input
